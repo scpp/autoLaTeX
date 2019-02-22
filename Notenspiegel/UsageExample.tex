@@ -1,0 +1,24 @@
+\documentclass[12pt]{article}
+
+\input{Notenspiegel}
+
+\begin{document}
+
+\pagestyle{empty}
+
+% New command to change the default font
+\newcommand{\changefont}[3]{
+\fontfamily{#1} \fontseries{#2} \fontshape{#3} \selectfont}
+
+% Change the default bold font
+\renewcommand{\bf}{\changefont{qhv}{b}{n}}
+% Change the default normal font and select it
+\renewcommand{\normalsize}{\changefont{qhv}{m}{n}}
+\normalsize
+
+
+% Use the macro Notenspiegel
+\Notenspiegel{70}
+
+
+\end{document}

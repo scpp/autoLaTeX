@@ -1,0 +1,49 @@
+% Automatically generated table of german marks from 5,0 to 1,0.
+% Usage: \Notenspiegel{<Maximum number of points>}
+%
+% Automatisch generierbare Notentabelle von 5,0 bis 1,0
+% Nutzung: \Notenspiegel{<Maximal erreichbare Punktezahl>}
+%
+% (C) Dr. Vladimir Mirnyy, 02/2019
+% License: GPLv3
+
+\usepackage{booktabs}
+
+\makeatletter
+\newcounter{Pstep}
+\newcounter{Pstart}
+\newcounter{Nstep}
+\newcounter{Nrun}
+\newcounter{Nstartpoint}
+\newcounter{Nendpoint}
+\newcounter{SP}
+\newcounter{EP}
+\makeatletter
+\newcommand*{\Notenspiegel}[1]{%
+\def\tand{&}%
+\setcounter{Pstep}{5}% percentage step
+\setcounter{Pstart}{50}% percentage start
+\setcounter{Nstep}{#1}%  counting in whole steps minimizing rounding errors
+\setcounter{Nstartpoint}{#1}%
+\multiply \value{Nstartpoint} by 10%
+\setcounter{Nendpoint}{\numexpr \value{Nstartpoint}-20\relax}%
+\setcounter{Nrun}{0}%
+\begin{tabular}{cccc}\toprule[1.2pt]%
+\textbf{Note} \tand \textbf{von} \tand \textbf{bis} \tand \textbf{\%}\\\midrule[1pt]%
+\textbf{5,0} \tand 0 \tand \theEP \tand 0 \\\midrule\addlinespace%
+\@whilenum \value{Nrun}<10\do {% 
+\setcounter{Nendpoint}{\numexpr \value{Nstartpoint}+\value{Nstep}-20\relax}%
+\setcounter{SP}{\numexpr \theNstartpoint / 20\relax}%
+\setcounter{EP}{\numexpr \theNendpoint / 20\relax}%
+\ifnum \value{Nrun}=9\relax \setcounter{EP}{#1}\fi
+\ifcase \value{Nrun}\relax
+\textbf{4,0} \or \textbf{3,7} \or \textbf{3,3} \or \textbf{3,0} \or \textbf{2,7} \or 
+\textbf{2,3} \or \textbf{2,0} \or \textbf{1,7} \or \textbf{1,3} \or \textbf{1,0}
+\fi \tand \theSP \tand \theEP \tand \thePstart \\\midrule\addlinespace%
+\addtocounter{Pstart}{\value{Pstep}}%
+\addtocounter{Nstartpoint}{\value{Nstep}}%
+\stepcounter{Nrun}%
+}%
+\end{tabular}
+}
+\makeatother
